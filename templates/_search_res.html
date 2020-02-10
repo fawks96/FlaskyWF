@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block body %}
+{% if users %}
+  {{ pagination.info }}
+  {{ pagination.links }}
+  <div class="table-responsive">
+    <table class="table table-hover">
+    <thead>
+      <tr><th>#</th><th>User Name</th></tr>
+    </thead>
+    <tbody>
+      {% for user in results %}
+      <tr>
+      <td>{{ loop.index + (page - 1) * per_page }}</td>
+      <td>{{ user.get('title')[0] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    </table>
+  </div>
+  {{ pagination.links }}
+  {% endif %}
+{% endblock %}
+
+{% block js %}
+  {% if active_url %}
+    $('#{{ active_url }}').addClass('active');
+  {% else %}
+  $('#users-url').addClass('active');
+  {% endif %}
+{% endblock %}
